@@ -146,7 +146,11 @@ function loadVideo(side, method, promptIdx) {
     video.play().catch(() => {});
   };
 
-  video.onended = () => onVideoEnded(side);
+  video.onended = () => {
+    onVideoEnded(side);
+    video.currentTime = 0;
+    video.play().catch(() => {});
+  };
 
   video.onerror = () => {
     console.error(`Failed to load: ${video.src}`);
