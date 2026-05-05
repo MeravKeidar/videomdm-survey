@@ -4,12 +4,12 @@
 // To add a future method: append its folder name here and add the symlink
 // under videos/. No other changes needed.
 const METHODS = [
-  "fit3d_mdm_on_wham",
   "ours",
   "ours_pnp",
   "fit3d_mdm_on_mvlift",
-  "ours_on_mvlift",
-  "ours_on_mvlift_pnp",
+  "fit3d_mdm_on_wham",
+  "wham_lift",
+  "mvlift",
 ];
 
 // ─── Prompts ───────────────────────────────────────────────────────────────
