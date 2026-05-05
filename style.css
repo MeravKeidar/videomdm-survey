@@ -199,6 +199,7 @@ h2 { font-size: 1.35rem; margin-bottom: 16px; }
 .ref-video-wrap {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 12px;
   margin-top: 12px;
   padding-top: 12px;
