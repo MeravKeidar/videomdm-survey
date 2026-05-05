@@ -1,11 +1,12 @@
-// Paste this entire file into your Google Apps Script editor.
-// See DEPLOY.md for step-by-step instructions.
+// Paste this into your Google Apps Script editor.
+// Replace SPREADSHEET_ID_HERE with your Google Sheet ID (from its URL).
+
+const SPREADSHEET_ID = "1oVEKLkUD7q6zdW9oKyrc9mTuddxx4uVdx3Ibrc-S3s8";
 
 function doPost(e) {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getActiveSheet();
   const data  = JSON.parse(e.postData.contents);
 
-  // Build a row: timestamp + one cell per prompt answer
   const row = [new Date().toISOString()];
   data.answers.forEach(ans => {
     row.push(`methodLeft=${ans.methodLeft}|methodRight=${ans.methodRight}|winner=${ans.winner}|winnerMethod=${ans.winnerMethod}`);
@@ -18,12 +19,10 @@ function doPost(e) {
     .setMimeType(ContentService.MimeType.JSON);
 }
 
-// Optional: call this once manually to add a header row to the sheet
+// Run this once manually to add header row
 function addHeaders() {
-  const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+  const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getActiveSheet();
   const headers = ["Timestamp"];
-  for (let i = 0; i < 20; i++) {
-    headers.push(`Prompt ${String(i).padStart(2, "0")}`);
-  }
+  for (let i = 0; i < 20; i++) headers.push(`Prompt ${String(i).padStart(2, "0")}`);
   sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
 }

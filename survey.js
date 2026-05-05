@@ -7,6 +7,9 @@ const METHODS = [
   "fit3d_mdm_on_wham",
   "ours",
   "ours_pnp",
+  "fit3d_mdm_on_mvlift",
+  "ours_on_mvlift",
+  "ours_on_mvlift_pnp",
 ];
 
 // ─── Prompts ───────────────────────────────────────────────────────────────
