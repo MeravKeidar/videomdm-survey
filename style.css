@@ -181,6 +181,13 @@ h2 { font-size: 1.35rem; margin-bottom: 16px; }
   border-radius: var(--radius);
   padding: 16px 22px;
   margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.prompt-text-col {
+  flex: 1;
+  min-width: 0;
 }
 .prompt-tag {
   display: inline-block;
@@ -198,12 +205,10 @@ h2 { font-size: 1.35rem; margin-bottom: 16px; }
 /* ── Reference video ── */
 .ref-video-wrap {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: flex-end;
-  gap: 12px;
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid var(--border);
+  gap: 6px;
+  flex-shrink: 0;
 }
 .ref-label {
   font-size: 0.72rem;
@@ -213,7 +218,7 @@ h2 { font-size: 1.35rem; margin-bottom: 16px; }
   white-space: nowrap;
 }
 #video-ref {
-  height: 100px;
+  height: 200px;
   width: auto;
   border-radius: 6px;
   border: 1px solid var(--border);
