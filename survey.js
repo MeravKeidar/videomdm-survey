@@ -79,7 +79,9 @@ function generateCode() {
 function initSession() {
   let seed = sessionStorage.getItem("survey_seed");
   if (!seed) {
-    seed = String(Math.random());
+    const arr = new Uint32Array(1);
+    crypto.getRandomValues(arr);
+    seed = String(arr[0] / 0xFFFFFFFF);
     sessionStorage.setItem("survey_seed", seed);
   }
 
