@@ -64,7 +64,16 @@ const state = {
   pairs: [],
   leftEnded: false,
   rightEnded: false,
+  completionCode: "",
 };
+
+// ─── Completion code ───────────────────────────────────────────────────────
+function generateCode() {
+  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+  let code = "";
+  for (let i = 0; i < 8; i++) code += chars[Math.floor(Math.random() * chars.length)];
+  return code;
+}
 
 // ─── Session init ──────────────────────────────────────────────────────────
 function initSession() {
@@ -73,6 +82,14 @@ function initSession() {
     seed = String(Math.random());
     sessionStorage.setItem("survey_seed", seed);
   }
+
+  let code = sessionStorage.getItem("survey_code");
+  if (!code) {
+    code = generateCode();
+    sessionStorage.setItem("survey_code", code);
+  }
+  state.completionCode = code;
+
   const rng = new RNG(parseFloat(seed));
 
   for (let i = 0; i < PROMPTS.length; i++) {
@@ -216,18 +233,28 @@ async function submitSurvey() {
       method:  "POST",
       mode:    "no-cors",
       headers: { "Content-Type": "application/json" },
-      body:    JSON.stringify({ answers: state.answers }),
+      body:    JSON.stringify({ answers: state.answers, completionCode: state.completionCode }),
     });
   } catch (e) {
     console.error("Submission error:", e);
   }
 
-  setTimeout(() => showScreen("screen-done"), 1200);
+  setTimeout(() => {
+    document.getElementById("completion-code").textContent = state.completionCode;
+    showScreen("screen-done");
+  }, 1200);
 }
 
 // ─── Entry point ───────────────────────────────────────────────────────────
 function init() {
   initSession();
+
+  document.getElementById("consent-checkbox").addEventListener("change", function () {
+    document.getElementById("btn-consent").disabled = !this.checked;
+  });
+  document.getElementById("btn-consent").addEventListener("click", () => {
+    showScreen("screen-welcome");
+  });
 
   document.getElementById("btn-start").addEventListener("click", () => {
     showScreen("screen-comparison");

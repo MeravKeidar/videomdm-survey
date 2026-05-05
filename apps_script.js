@@ -7,7 +7,7 @@ function doPost(e) {
   const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getActiveSheet();
   const data  = JSON.parse(e.postData.contents);
 
-  const row = [new Date().toISOString()];
+  const row = [new Date().toISOString(), data.completionCode || ""];
   data.answers.forEach(ans => {
     row.push(`methodLeft=${ans.methodLeft}|methodRight=${ans.methodRight}|winner=${ans.winner}|winnerMethod=${ans.winnerMethod}`);
   });
@@ -22,7 +22,7 @@ function doPost(e) {
 // Run this once manually to add header row
 function addHeaders() {
   const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getActiveSheet();
-  const headers = ["Timestamp"];
+  const headers = ["Timestamp", "Completion Code"];
   for (let i = 0; i < 20; i++) headers.push(`Prompt ${String(i).padStart(2, "0")}`);
   sheet.getRange(1, 1, 1, headers.length).setValues([headers]);
 }
