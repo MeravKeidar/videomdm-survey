@@ -146,6 +146,10 @@ function loadComparison(idx) {
   document.getElementById("progress-label").textContent = `${idx + 1} / ${PROMPTS.length}`;
   document.getElementById("prompt-text").textContent = PROMPTS[idx];
 
+  const refVideo = document.getElementById("video-ref");
+  refVideo.src = `videos/reference/sample${String(idx).padStart(2, "0")}.mp4`;
+  refVideo.load();
+
   document.getElementById("btn-left").disabled  = true;
   document.getElementById("btn-right").disabled = true;
   updateWaitingMsg();

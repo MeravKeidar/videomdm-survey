@@ -195,6 +195,31 @@ h2 { font-size: 1.35rem; margin-bottom: 16px; }
   line-height: 1.5;
 }
 
+/* ── Reference video ── */
+.ref-video-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.ref-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+#video-ref {
+  height: 100px;
+  width: auto;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #000;
+  display: block;
+}
+
 /* ── Videos ── */
 .videos-row {
   display: flex;
