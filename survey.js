@@ -4,8 +4,8 @@
 // To add a future method: append its folder name here and add the symlink
 // under videos/. No other changes needed.
 const METHODS = [
-  "ours",
-  "ours_pnp",
+  "ours_3dest",
+  "ours_pnp_floor_corrected",
   "fit3d_mdm_on_mvlift",
   "fit3d_mdm_on_wham",
   "wham_lift",
@@ -69,7 +69,8 @@ const state = {
 
 // ─── Completion code ───────────────────────────────────────────────────────
 function generateCode() {
-  return "C4RAD54K";
+  // Prolific completion code for this study (survey v2).
+  return "CMHLXP8I";
 }
 
 // ─── Session init ──────────────────────────────────────────────────────────

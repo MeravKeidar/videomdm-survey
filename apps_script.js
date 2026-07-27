@@ -1,7 +1,13 @@
 // Paste this into your Google Apps Script editor.
-// Replace SPREADSHEET_ID_HERE with your Google Sheet ID (from its URL).
+//
+// Replace PASTE_NEW_SHEET_ID_HERE with the ID of a NEW Google Sheet.
+// The ID is the long string in the sheet's URL:
+//   https://docs.google.com/spreadsheets/d/<THIS_PART>/edit
+//
+// Do NOT reuse the survey v1 sheet (1oVEKLkUD7q6zdW9oKyrc9mTuddxx4uVdx3Ibrc-S3s8) —
+// v2 compares a different set of methods and the columns would be mixed together.
 
-const SPREADSHEET_ID = "1oVEKLkUD7q6zdW9oKyrc9mTuddxx4uVdx3Ibrc-S3s8";
+const SPREADSHEET_ID = "1ArAQEkWFaMMz0xWGD4GuVZFJ8P4790GvPsgzj59myB8";
 
 function doPost(e) {
   const sheet = SpreadsheetApp.openById(SPREADSHEET_ID).getActiveSheet();
