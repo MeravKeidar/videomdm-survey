@@ -6,11 +6,34 @@
 const METHODS = [
   "ours_3dest",
   "ours_pnp_floor_corrected",
+  "ours_pnp",
   "fit3d_mdm_on_mvlift",
   "fit3d_mdm_on_wham",
   "wham_lift",
   "mvlift",
 ];
+
+// Method pairs that must never be shown together. Each entry is an unordered
+// pair; both orderings are excluded.
+const EXCLUDED_PAIRS = [
+  ["ours_pnp_floor_corrected", "ours_3dest"],
+];
+
+function isExcluded(a, b) {
+  return EXCLUDED_PAIRS.some(([x, y]) =>
+    (a === x && b === y) || (a === y && b === x));
+}
+
+// All unordered method pairs that are allowed to be compared.
+function allowedPairs() {
+  const out = [];
+  for (let i = 0; i < METHODS.length; i++) {
+    for (let j = i + 1; j < METHODS.length; j++) {
+      if (!isExcluded(METHODS[i], METHODS[j])) out.push([METHODS[i], METHODS[j]]);
+    }
+  }
+  return out;
+}
 
 // ─── Prompts ───────────────────────────────────────────────────────────────
 const PROMPTS = [
@@ -92,11 +115,14 @@ function initSession() {
 
   const rng = new RNG(parseFloat(seed));
 
+  // Draw uniformly from the allowed pairs rather than shuffling all methods and
+  // taking the first two: that keeps coverage even across pairs and makes the
+  // exclusion exact instead of relying on rejection.
+  const pool = allowedPairs();
+
   for (let i = 0; i < PROMPTS.length; i++) {
-    const shuffled = rng.shuffle(METHODS);
-    const methodA  = shuffled[0];
-    const methodB  = shuffled[1];
-    const leftIsA  = rng.next() > 0.5;
+    const [methodA, methodB] = pool[Math.floor(rng.next() * pool.length)];
+    const leftIsA = rng.next() > 0.5;
     state.pairs.push({
       methodLeft:  leftIsA ? methodA : methodB,
       methodRight: leftIsA ? methodB : methodA,
